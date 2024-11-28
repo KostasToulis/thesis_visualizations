@@ -32,16 +32,39 @@ best_costs = np.loadtxt('bestCosts.txt')
 def plot_search_trajectory(search_trajectory):
     fig, ax = plt.subplots()
     ax.plot(search_trajectory[:, 0], search_trajectory[:, 1], label='Search Trajectory', color='gray')
+
+    for tick in range(0, int(search_trajectory[-1, 0]) + 1, 100):
+        ax.axvline(x=tick, color='black', linestyle='-', alpha=0.2)
+
     ax.set_xlabel("LS Iteration", fontsize=28)
     ax.set_ylabel("Solution Cost", fontsize=28)
 
-    # ax.set_xticklabels([0, 1000, 2000, 3000, 4000], fontsize=24)
-    # ax.set_yticklabels([500, 530, 560, 590, 620], fontsize=24)
+    ax.tick_params(axis='x', labelsize=22)
+    ax.tick_params(axis='y', labelsize=20)
+
     ax.xaxis.tick_top()
     ax.yaxis.tick_right()
 
-    # plt.ylim([490, 630])
-    # plt.xlim([-200,5000])
+    plt.show()
+
+def plot_best_trajectory(best_trajectory):
+    fig, ax = plt.subplots()
+    ax.plot(best_trajectory[:, 0], best_trajectory[:, 1], label='Best Cost Trajectory', color='gray')
+
+    # for tick in range(0, int(search_trajectory[-1, 0]) + 1, 100):
+    #     ax.axvline(x=tick, color='black', linestyle='-', alpha=0.2)
+
+    ax.set_xlabel("LS Iteration", fontsize=28)
+    ax.set_ylabel("Solution Cost", fontsize=28)
+
+    ax.tick_params(axis='x', labelsize=22)
+    ax.tick_params(axis='y', labelsize=20)
+
+    plt.xscale("log")
+
+    ax.xaxis.tick_top()
+    ax.yaxis.tick_right()
+
     plt.show()
 
 def plot_costs(best_costs):
@@ -50,17 +73,20 @@ def plot_costs(best_costs):
     x = [i+1 for i in range(len(best_costs))]
 
     ax.bar(x, best_costs, color='gray')
-    ax.set_xticklabels(x, fontsize=24)
-    ax.set_yticklabels([480, 490, 500, 510, 520, 530], fontsize=24)
     ax.yaxis.tick_right()
     ax.set_ylabel('Solution Cost', fontsize=26)
     ax.set_xlabel('LNS iteration', fontsize=26)
-    # ax.set_title('Solution Cost Evolution per LNS Iteration', fontsize=24)
+
+    ax.tick_params(axis='x', labelsize=18)
+    ax.tick_params(axis='y', labelsize=20)
+    ax.set_xticks(range(1, 14, 2))
+    ax.set_yticks(range(480, 521, 10))
 
 
-    plt.ylim([480, 530])
+    plt.ylim([480, 520])
     plt.show()
 
 
-plot_search_trajectory(search_trajectory)
+# plot_search_trajectory(search_trajectory)
+plot_best_trajectory(best_trajectory)
 # plot_costs(best_costs)
