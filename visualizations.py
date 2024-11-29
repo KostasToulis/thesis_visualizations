@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-best_trajectory = np.loadtxt('bestTrajectory.txt')
-search_trajectory = np.loadtxt('searchTrajectory.txt')
-best_costs = np.loadtxt('bestCosts.txt')
+best_trajectory = np.loadtxt('bestTrajectory1.txt')
+search_trajectory = np.loadtxt('searchTrajectory1.txt')
+best_costs = np.loadtxt('bestCosts1.txt')
 
 
 # def plot_search_trajectories(best_trajectory, search_trajectory):
@@ -31,6 +31,28 @@ best_costs = np.loadtxt('bestCosts.txt')
 
 def plot_search_trajectory(search_trajectory):
     fig, ax = plt.subplots()
+    ax.plot(search_trajectory[:, 0], search_trajectory[:, 1], label='Search Trajectory', color='gray')
+
+    min_y_index = search_trajectory[:, 1].argmin()
+    min_x = search_trajectory[min_y_index, 0]
+
+    ax.axvline(x=min_x, color='black', linestyle='-', linewidth=1.5, label='Min Value')
+
+    ax.set_xlabel("LS Iteration", fontsize=28)
+    ax.set_ylabel("Solution Cost", fontsize=28)
+
+    ax.tick_params(axis='x', labelsize=22)
+    ax.tick_params(axis='y', labelsize=20)
+
+    ax.xaxis.tick_top()
+    ax.yaxis.tick_right()
+
+    plt.show()
+
+
+def plot_search_trajectory_with_promises(search_trajectory):
+    fig, ax = plt.subplots()
+    search_trajectory = search_trajectory[:1000,]
     ax.plot(search_trajectory[:, 0], search_trajectory[:, 1], label='Search Trajectory', color='gray')
 
     for tick in range(0, int(search_trajectory[-1, 0]) + 1, 100):
@@ -79,14 +101,15 @@ def plot_costs(best_costs):
 
     ax.tick_params(axis='x', labelsize=18)
     ax.tick_params(axis='y', labelsize=20)
-    ax.set_xticks(range(1, 14, 2))
-    ax.set_yticks(range(480, 521, 10))
+    ax.set_xticks(range(1, 21, 2))
+    ax.set_yticks(range(490, 511, 5))
 
 
-    plt.ylim([480, 520])
+    plt.ylim([490, 510])
     plt.show()
 
 
-# plot_search_trajectory(search_trajectory)
+plot_search_trajectory(search_trajectory)
+plot_search_trajectory_with_promises(search_trajectory)
 plot_best_trajectory(best_trajectory)
-# plot_costs(best_costs)
+plot_costs(best_costs)
